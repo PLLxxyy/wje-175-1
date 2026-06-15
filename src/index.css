@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #FF6B6B;
+  --color-primary-light: #FF8E8E;
+  --color-primary-dark: #E85555;
+  --color-secondary: #4ECDC4;
+  --color-secondary-light: #6FE0D9;
+  --color-secondary-dark: #3BBFB6;
+  --color-background: #FFF8F0;
+  --color-surface: #FFFFFF;
+  --color-text: #2C3E50;
+  --color-text-light: #7F8C8D;
+  --color-border: #F0E6DB;
+  --color-accent: #FFE66D;
+
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text min-h-screen;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Nunito', sans-serif;
+    @apply font-bold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-2.5 rounded-xl font-semibold
+           hover:bg-primary-dark active:scale-[0.98] transition-all duration-200
+           shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-white px-6 py-2.5 rounded-xl font-semibold
+           hover:bg-secondary-dark active:scale-[0.98] transition-all duration-200
+           shadow-sm hover:shadow-md;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary px-6 py-2.5 rounded-xl font-semibold
+           hover:bg-primary hover:text-white active:scale-[0.98] transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-surface rounded-2xl shadow-sm border border-border p-5;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 rounded-xl border border-border bg-surface
+           focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary
+           transition-all duration-200 text-text placeholder:text-text-light;
+  }
+
+  .section-title {
+    @apply text-lg font-bold text-text font-display;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1c7b8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8aa98;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out;
+}
