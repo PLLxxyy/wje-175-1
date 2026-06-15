@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Star } from 'lucide-react';
 import { api } from '@/utils/api';
 import { useAppStore } from '@/store';
 import StepIndicator from '@/components/StepIndicator';
@@ -67,6 +67,33 @@ export default function AppointmentDoctor() {
                   {doctor.title}
                   {doctor.department_name ? ` · ${doctor.department_name}` : ''}
                 </p>
+                <div className="flex items-center gap-1.5 mt-1">
+                  {doctor.avg_rating != null ? (
+                    <>
+                      <div className="flex items-center">
+                        {[1, 2, 3, 4, 5].map(i => (
+                          <Star
+                            key={i}
+                            size={14}
+                            className={`${
+                              i <= Math.round(doctor.avg_rating!)
+                                ? 'text-amber-400 fill-amber-400'
+                                : 'text-gray-300 fill-transparent'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-sm font-medium text-amber-600">
+                        {doctor.avg_rating}
+                      </span>
+                      <span className="text-xs text-text-light">
+                        ({doctor.review_count}条评价)
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-xs text-text-light">暂无评价</span>
+                  )}
+                </div>
               </div>
               <button
                 className="btn-secondary text-sm py-1.5 px-4 shrink-0"

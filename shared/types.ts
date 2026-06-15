@@ -40,6 +40,8 @@ export interface Doctor {
   department_id: number;
   department_name?: string;
   avatar?: string;
+  avg_rating?: number;
+  review_count?: number;
 }
 
 export interface TimeSlot {
@@ -68,6 +70,16 @@ export interface Appointment {
   record?: MedicalRecord;
 }
 
+export interface Review {
+  id: number;
+  appointment_id: number;
+  doctor_id: number;
+  owner_id: number;
+  rating: number;
+  comment: string;
+  created_at: string;
+}
+
 export interface MedicalRecord {
   id: number;
   appointment_id: number;
@@ -78,6 +90,11 @@ export interface MedicalRecord {
   follow_up_date?: string;
   created_at: string;
   doctor_name?: string;
+  doctor_title?: string;
+  appointment_date?: string;
+  appointment_time_slot?: string;
+  appointment_status?: string;
+  review?: Review;
 }
 
 export interface Reminder {

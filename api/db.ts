@@ -89,6 +89,16 @@ db.exec(`
     follow_up_date TEXT,
     created_at TEXT DEFAULT (datetime('now'))
   );
+
+  CREATE TABLE IF NOT EXISTS reviews (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    appointment_id INTEGER NOT NULL UNIQUE REFERENCES appointments(id),
+    doctor_id INTEGER NOT NULL REFERENCES doctors(id),
+    owner_id INTEGER NOT NULL REFERENCES users(id),
+    rating INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 5),
+    comment TEXT,
+    created_at TEXT DEFAULT (datetime('now'))
+  );
 `)
 
 const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get() as { count: number }

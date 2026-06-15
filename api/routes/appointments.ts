@@ -17,9 +17,21 @@ router.get('/departments/:id/doctors', (req: Request, res: Response): void => {
      JOIN users u ON d.user_id = u.id
      JOIN departments dept ON d.department_id = dept.id
      WHERE d.department_id = ?`
-  ).all(deptId)
+  ).all(deptId) as any[]
 
-  res.json({ success: true, data: doctors })
+  const doctorsWithRating = doctors.map(doc => {
+    const stats = db.prepare(
+      `SELECT AVG(rating) as avg_rating, COUNT(*) as review_count
+       FROM reviews WHERE doctor_id = ?`
+    ).get(doc.id) as { avg_rating: number | null; review_count: number }
+    return {
+      ...doc,
+      avg_rating: stats.avg_rating ? Number(stats.avg_rating.toFixed(1)) : null,
+      review_count: stats.review_count || 0,
+    }
+  })
+
+  res.json({ success: true, data: doctorsWithRating })
 })
 
 router.get('/doctors/:id/slots', (req: Request, res: Response): void => {
